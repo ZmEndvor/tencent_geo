@@ -7,6 +7,9 @@ import json
 from urllib import parse
 
 class TencentGeo(object):
+    def result(self, result):
+        result = json.dumps(result, indent=1, ensure_ascii=False)
+        return result
 
     def geocode(self, address):
         """
@@ -18,7 +21,7 @@ class TencentGeo(object):
         base = 'https://apis.map.qq.com/ws/geocoder/v1'
         response = requests.get(base, params=parameters)
         answer = response.json()
-        result = json.dumps(answer, indent=1, ensure_ascii=False)
+        result = self.result(answer)
         return result
 
     def search(self, keyword):
@@ -32,7 +35,7 @@ class TencentGeo(object):
         base = 'https://apis.map.qq.com/ws/place/v1/search'
         response = requests.get(base, params=parameters)
         answer = response.json()
-        result = json.dumps(answer, indent=1, ensure_ascii=False)
+        result = self.result(answer)
         return result
 
 if __name__ == '__main__':
